@@ -1,5 +1,5 @@
 //
-//  DeezerAPI.swift
+//  Model.swift
 //  Album
 //
 //  Created by Ernest Chechelski on 13/04/2019.
@@ -7,48 +7,6 @@
 //
 
 import Foundation
-import Alamofire
-// To parse the JSON, add this file to your project and do:
-//
-//   let welcome = try? newJSONDecoder().decode(Welcome.self, from: jsonData)
-//
-// To parse values from Alamofire responses:
-//
-//   Alamofire.request(url).responseWelcome { response in
-//     if let welcome = response.result.value {
-//       ...
-//     }
-//   }
-
-import Foundation
-import Alamofire
-import AlamofireImage
-
-
-
-class DeezerAPI {
-    func xd(){
-        var url = "https://api.deezer.com/playlist/2661417904"
-        Alamofire.request(url).responsePlaylist { response in
-             if let playlist = response.result.value {
-                for song in playlist.tracks.data {
-                    
-                }
-             }
-        }
-        Alamofire.request("https://httpbin.org/image/png").responseImage { response in
-          
-            print(response.request)
-            print(response.response)
-        
-            if let image = response.result.value {
-                print("image downloaded: \(image)")
-            }
-        }
-    }
-}
-
-
 struct Playlist: Codable {
     let id: Int
     let title, description: String
@@ -152,46 +110,4 @@ enum AlbumType: String, Codable {
 
 enum SongType: String, Codable {
     case track = "track"
-}
-
-fileprivate func newJSONDecoder() -> JSONDecoder {
-    let decoder = JSONDecoder()
-    if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
-        decoder.dateDecodingStrategy = .iso8601
-    }
-    return decoder
-}
-
-fileprivate func newJSONEncoder() -> JSONEncoder {
-    let encoder = JSONEncoder()
-    if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
-        encoder.dateEncodingStrategy = .iso8601
-    }
-    return encoder
-}
-
-// MARK: - Alamofire response handlers
-
-extension DataRequest {
-    fileprivate func decodableResponseSerializer<T: Decodable>() -> DataResponseSerializer<T> {
-        return DataResponseSerializer { _, response, data, error in
-            guard error == nil else { return .failure(error!) }
-            
-            guard let data = data else {
-                return .failure(AFError.responseSerializationFailed(reason: .inputDataNil))
-            }
-            
-            return Result { try newJSONDecoder().decode(T.self, from: data) }
-        }
-    }
-    
-    @discardableResult
-    fileprivate func responseDecodable<T: Decodable>(queue: DispatchQueue? = nil, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
-        return response(queue: queue, responseSerializer: decodableResponseSerializer(), completionHandler: completionHandler)
-    }
-    
-    @discardableResult
-    func responsePlaylist(queue: DispatchQueue? = nil, completionHandler: @escaping (DataResponse<Playlist>) -> Void) -> Self {
-        return responseDecodable(queue: queue, completionHandler: completionHandler)
-    }
 }

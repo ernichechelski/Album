@@ -18,7 +18,10 @@
 		A3279AB52261FD6D00721FEC /* DeezerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3279AB42261FD6D00721FEC /* DeezerAPI.swift */; };
 		A3D36873226201B500A61BD4 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D36872226201B500A61BD4 /* ImageCollectionViewCell.swift */; };
 		A3D36875226205AF00A61BD4 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D36874226205AF00A61BD4 /* ViewModel.swift */; };
-		A3D3687722621BA200A61BD4 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D3687622621BA200A61BD4 /* Animations.swift */; };
+		A3D3687F22622A8F00A61BD4 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D3687E22622A8F00A61BD4 /* Model.swift */; };
+		A3D3688122622CD600A61BD4 /* no_cover.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A3D3688022622CD600A61BD4 /* no_cover.jpg */; };
+		A3D3688822622F5500A61BD4 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D3688722622F5500A61BD4 /* DataProvider.swift */; };
+		A3D3688B226233CC00A61BD4 /* MockDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D3688A226233CC00A61BD4 /* MockDataProvider.swift */; };
 		A884565624E7EE846F5FFC15 /* Pods_AlbumTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3883C0D5BB9406BB77F71F2 /* Pods_AlbumTests.framework */; };
 		F3144F8A178F8F14D3A38995 /* Pods_Album.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CA5B0B5DCDC74FDF6F6605 /* Pods_Album.framework */; };
 /* End PBXBuildFile section */
@@ -63,7 +66,10 @@
 		A3279AB42261FD6D00721FEC /* DeezerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeezerAPI.swift; sourceTree = "<group>"; };
 		A3D36872226201B500A61BD4 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		A3D36874226205AF00A61BD4 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		A3D3687622621BA200A61BD4 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
+		A3D3687E22622A8F00A61BD4 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		A3D3688022622CD600A61BD4 /* no_cover.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = no_cover.jpg; sourceTree = "<group>"; };
+		A3D3688722622F5500A61BD4 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		A3D3688A226233CC00A61BD4 /* MockDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataProvider.swift; sourceTree = "<group>"; };
 		E4D62AB0BA35B0B97FE6A9D2 /* Pods-Album.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Album.release.xcconfig"; path = "Pods/Target Support Files/Pods-Album/Pods-Album.release.xcconfig"; sourceTree = "<group>"; };
 		F3883C0D5BB9406BB77F71F2 /* Pods_AlbumTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlbumTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8F72B86E6FF4044320BEF02 /* Pods_AlbumUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlbumUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,16 +141,16 @@
 		A308BAB62261F4A400D494D2 /* Album */ = {
 			isa = PBXGroup;
 			children = (
+				A3D3688422622F0800A61BD4 /* Dependecies */,
 				A308BAB72261F4A400D494D2 /* AppDelegate.swift */,
 				A308BAB92261F4A400D494D2 /* ViewController.swift */,
 				A308BABB2261F4A400D494D2 /* Main.storyboard */,
 				A308BABE2261F4A800D494D2 /* Assets.xcassets */,
+				A3D3688022622CD600A61BD4 /* no_cover.jpg */,
 				A308BAC02261F4A800D494D2 /* LaunchScreen.storyboard */,
 				A308BAC32261F4A800D494D2 /* Info.plist */,
-				A3279AB42261FD6D00721FEC /* DeezerAPI.swift */,
+				A3D3687C226224A000A61BD4 /* DataProvider */,
 				A3D36872226201B500A61BD4 /* ImageCollectionViewCell.swift */,
-				A3D36874226205AF00A61BD4 /* ViewModel.swift */,
-				A3D3687622621BA200A61BD4 /* Animations.swift */,
 			);
 			path = Album;
 			sourceTree = "<group>";
@@ -165,6 +171,41 @@
 				A308BAD92261F4A800D494D2 /* Info.plist */,
 			);
 			path = AlbumUITests;
+			sourceTree = "<group>";
+		};
+		A3D3687C226224A000A61BD4 /* DataProvider */ = {
+			isa = PBXGroup;
+			children = (
+				A3D36889226233AE00A61BD4 /* Mock */,
+				A3D36874226205AF00A61BD4 /* ViewModel.swift */,
+				A3D3688722622F5500A61BD4 /* DataProvider.swift */,
+				A3D3687D226224BD00A61BD4 /* Deezer */,
+			);
+			path = DataProvider;
+			sourceTree = "<group>";
+		};
+		A3D3687D226224BD00A61BD4 /* Deezer */ = {
+			isa = PBXGroup;
+			children = (
+				A3279AB42261FD6D00721FEC /* DeezerAPI.swift */,
+				A3D3687E22622A8F00A61BD4 /* Model.swift */,
+			);
+			path = Deezer;
+			sourceTree = "<group>";
+		};
+		A3D3688422622F0800A61BD4 /* Dependecies */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Dependecies;
+			sourceTree = "<group>";
+		};
+		A3D36889226233AE00A61BD4 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				A3D3688A226233CC00A61BD4 /* MockDataProvider.swift */,
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 		ECF1EDCD697AF265E73D68D9 /* Frameworks */ = {
@@ -288,6 +329,7 @@
 			files = (
 				A308BAC22261F4A800D494D2 /* LaunchScreen.storyboard in Resources */,
 				A308BABF2261F4A800D494D2 /* Assets.xcassets in Resources */,
+				A3D3688122622CD600A61BD4 /* no_cover.jpg in Resources */,
 				A308BABD2261F4A400D494D2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,11 +470,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3D3687F22622A8F00A61BD4 /* Model.swift in Sources */,
 				A3D36875226205AF00A61BD4 /* ViewModel.swift in Sources */,
 				A3279AB52261FD6D00721FEC /* DeezerAPI.swift in Sources */,
-				A3D3687722621BA200A61BD4 /* Animations.swift in Sources */,
 				A308BABA2261F4A400D494D2 /* ViewController.swift in Sources */,
+				A3D3688822622F5500A61BD4 /* DataProvider.swift in Sources */,
 				A3D36873226201B500A61BD4 /* ImageCollectionViewCell.swift in Sources */,
+				A3D3688B226233CC00A61BD4 /* MockDataProvider.swift in Sources */,
 				A308BAB82261F4A400D494D2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

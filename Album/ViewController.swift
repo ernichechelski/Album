@@ -15,58 +15,43 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var imagesCollectionView: UICollectionView!
     
-    
-    var selectedIndexPath: IndexPath!
-    var currentLeftSafeAreaInset  : CGFloat = 0.0
-    var currentRightSafeAreaInset : CGFloat = 0.0
+    @IBOutlet weak var rightSwitch: UISwitch!
+    @IBOutlet weak var leftSwitch: UISwitch!
     
     var disposeBag = DisposeBag()
-    var dataSource: RxCollectionViewSectionedAnimatedDataSource<MySection>?
-
-   
+    var dataSource: RxCollectionViewSectionedAnimatedDataSource<MySectionViewModel>?
+    var networkDataSource:MySectionDataSource = DataProvider().getSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        let dataSource = RxCollectionViewSectionedAnimatedDataSource<MySection>(configureCell: {
+        dataSource = RxCollectionViewSectionedAnimatedDataSource<MySectionViewModel>(configureCell: {
             dataSource,
             collectionView,
             indexPath,
             item in
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ImageCollectionViewCell
-                //cell.imageView.backgroundColor = .red
-            
-            cell.imageView.af_setImage(withURL: URL(string: "https://e-cdns-images.dzcdn.net/images/cover/39a21dbce23801f4efe8946cccb9b560/250x250-000000-80-0-0.jpg")!,completion: { (response) in
-                cell.sizeToFit()
-            })
-            cell.imageView.motionIdentifier = "photo_\(indexPath.item)"
+            cell.imageView.af_setImage(withURL: URL(string:item)!,placeholderImage: UIImage.init(named: "no_cover.jpg"))
                 return cell
             }
         )
-        
-        imagesCollectionView.setContentOffset(imagesCollectionView.contentOffset, animated:true)
-        let sections = [
-            MySection(header: "First section", items: [
-                1,
-                2,3,4,5,6,7,8,9,10,11
-                ]),
-            MySection(header: "First section", items: [
-                1,
-                2
-                ])
-        ]
-        
-        let observable =  Observable.just(sections)
-        imagesCollectionView.rx.modelSelected(Int.self).asObservable().subscribe(onNext: { (item) in
+        let observable = networkDataSource.dataObservable()
             
-            
-        }).disposed(by: disposeBag)
-        
-        
-        observable
-            .bind(to: imagesCollectionView.rx.items(dataSource: dataSource))
+            observable.bind(to: imagesCollectionView.rx.items(dataSource: dataSource!))
             .disposed(by: disposeBag)
      
+        
+        
+        Observable.combineLatest(leftSwitch.rx.isOn,
+                             rightSwitch.rx.isOn
+        ,imagesCollectionView.rx.modelSelected(String.self).asObservable()).subscribe(onNext: { (left,right,item) in
+            
+            if left && right {
+                let alert = UIAlertController(title: "You selected this url", message:item,preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            }
+            
+        
+        }).disposed(by: disposeBag)
     }   
 }

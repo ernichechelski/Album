@@ -8,20 +8,23 @@
 
 import Foundation
 import RxDataSources
+import RxSwift
 
-struct MySection {
+
+
+struct MySectionViewModel {
     var header: String
     var items: [Item]
 }
 
-extension MySection : AnimatableSectionModelType {
-    typealias Item = Int
+extension MySectionViewModel : AnimatableSectionModelType {
+    typealias Item = String
     
     var identity: String {
         return header
     }
     
-    init(original: MySection, items: [Item]) {
+    init(original: MySectionViewModel, items: [Item]) {
         self = original
         self.items = items
     }
